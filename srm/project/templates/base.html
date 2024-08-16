@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon">
+    <title>SRM VEC - Orkestrim 2024</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Garamond, serif;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+
+        .background-video {
+            position: fixed; /* Keep the video fixed in place */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place video behind other content */
+        }
+
+        #myVideo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the video covers the entire area */
+            transform: translate(-50%, -50%); /* Center the video */
+            z-index: -1; /* Ensure video is behind the image */
+        }
+
+        .engraving-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%; /* Adjust width as needed */
+            opacity: 0.2; /* Make the image semi-transparent */
+        }
+
+        .navbar {
+            background-color: rgba(110, 110, 110, 0.8); /* Semi-transparent background color */
+            color: #fff;
+            font-family: Garamond, serif;
+            padding: 0;
+            position: fixed; /* Keeps the navbar fixed at the top */
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensures the navbar stays on top of other elements */
+            box-sizing: border-box; /* Includes padding in element's total width */
+        }
+
+        .container {
+            max-width: 100%; /* Use full width */
+            margin: 0;
+            padding: 0 20px; /* Add padding for spacing */
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Align items vertically */
+            box-sizing: border-box; /* Includes padding in element's total width */
+        }
+
+        .logo img {
+            height: 65px;
+            width: 65px; /* Adjust the height and width as needed */
+            display: block;
+            border-radius: 50%; /* Remove any extra space below the image */
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            font-size: 18px;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            background-color: transparent;
+            color: #fff;
+            padding: auto;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s ease;
+            border-radius: 15%;
+        }
+
+        .nav-links a:hover {
+            color: #b8793b;
+        }
+
+        .info {
+            text-align: center; /* Center text horizontally */
+            margin-top: 100px; /* Space from the top to ensure it doesn't overlap with the navbar */
+            z-index: 2; /* Ensure text is above the image */
+        }
+
+        .info h1 {
+            color: #fff;
+            font-family: Garamond, serif;
+            font-size: 3em; /* Adjust font size as needed */
+        }
+
+        .registration-info, .contact-info {
+            color: #fff;
+            font-family: Garamond, serif;
+            font-size: 1.2em; /* Adjust font size as needed */
+            padding: 20px;
+            max-width: 800px; /* Limit width for readability */
+            margin: 50px auto; /* Center text and add margin from top and bottom */
+            line-height: 1.5;
+            text-align: center; /* Center text in the container */
+        }
+
+        .card-group {
+            display: flex;
+            justify-content: space-between; /* Distribute space equally between cards */
+            flex-wrap: nowrap; /* Prevent wrapping to the next line */
+            padding: 20px; /* Padding around the entire card group */
+            background-color: transparent; /* Transparent background for the card group */
+            overflow-x: auto; /* Enable horizontal scrolling if cards overflow */
+            scrollbar-width: none; /* For Firefox, hide the scrollbar */
+            -ms-overflow-style: none;  /* For Internet Explorer and Edge, hide the scrollbar */ 
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            width: 23%; /* Adjust width to fit all cards in one line */
+            transition: 0.3s;
+            background-color: transparent; /* Transparent background for each card */
+            margin: 10px; /* Margin around each card */
+            flex-shrink: 0; /* Prevent cards from shrinking */
+        }
+
+        .cardcontainer {
+            padding: 10px 16px; /* Padding inside the card */
+            background-color: rgba(165, 162, 162, 0.2); /* Slightly transparent background for content */
+            border-radius: 5px;
+            color: #fff; /* Text color */
+        }
+
+        .card-img {
+            width: 100%; /* Full width for images */
+            border-radius: 5px 5px 0 0; /* Rounded corners for the top of the image */
+        }
+
+        .nav-links .instagram-logo img {
+            width: 32px; /* Smaller size for the Instagram logo */
+            height: 32px; /* Maintain aspect ratio */
+            border-radius: 20px;
+        }
+
+
+        
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: row;
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            .container h1 {
+                font-size: 16px;
+            }
+
+            .nav-links li {
+                margin-left: 10px;
+            }
+
+            .logo img {
+                height: 50px;
+                width: 50px;
+            }
+
+            .nav-links a.register-btn {
+                margin-right: 5px;
+            }
+
+            .nav-links .instagram-logo img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .card {
+                width: 45%; /* Reduce card width in mobile view */
+            }
+
+            .info h1 {
+                font-size: 2em; /* Decrease font size of main heading */
+            }
+
+            .registration-info h2, .contact-info h2 {
+                font-size: 1.5em; /* Decrease font size of subheadings */
+            }
+
+            .registration-info p, .contact-info p {
+                font-size: 1em; /* Decrease font size of paragraph text */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay muted loop id="myVideo">
+            <source src="static/j:\srm\project\static\images\2317-157183728.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <img src="static/j:\srm\project\static\images\IMG-20230902-WA0015-Photoroom-ai-brush-removebg-d1j6838f.png" alt="bglogo" class="engraving-image">
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="static/j:\srm\project\static\images\IMG-20230902-WA0015-Photoroom-ai-brush-removebg-d1j6838f.png" alt="Logo">
+            </a>
+            <h1>SRM VALLIAMMAI ENGINEERING COLLEGE</h1>
+            <ul class="nav-links">
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScY1HGOth0Pj-0UrzP7T0-LWXx8FMFvBwGL8u4qZIyM4IZSGg/viewform" class="register-btn">Register</a></li>
+                <li><a href="https://www.instagram.com/orkestrim_2k24_?utm_source=qr&igshid=cWQ1czB0YmZlMG1u" class="instagram-logo"><img src="static/J:\srm\project\static\images\t_500x300.jpeg" alt="Instagram"></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="info" class="info">
+        <h1>Orkestrim 2024</h1>
+    </div>
+
+    <div id="registration" class="registration-info">
+        <h2>DEPARTMENT OF ELECTRONICS AND INSTRUMENTATION</h2>
+        <p>NATIONAL LEVEL TECHNICAL SYMPOSIUM</p>
+        <p>on 14ᵗʰ September, 2024 at 9.30 A.M in the New Seminar Hall (3ʳᵈ floor), SRM VEC</p>
+        <p>Registration Fee: 150 Rupees</p>
+        <p>Registration Deadline: [Include deadline date]</p>
+    </div>
+
+    <div class="card-group">
+        <div class="card">
+            <img src="static/images/WhatsApp Image 2024-08-16 at 10.14.08_aff74ab0.jpg" alt="Avatar 1" class="card-img">
+            <div class="cardcontainer">
+                <h4><b>Poster presentation</b></h4> 
+                <p>Architect & Engineer</p> 
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="static/images/Technical Quiz-1.png" alt="Avatar 2" class="card-img">
+            <div class="cardcontainer">
+                <h4><b>Technical Quiz</b></h4> 
+                <p>Designer</p> 
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="static/images/TECHNICAL ADZAP-2-1.png" alt="Avatar 3" class="card-img">
+            <div class="cardcontainer">
+                <h4><b>Circuit Debugging</b></h4> 
+                <p>Developer</p> 
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="static/images/Poster Presentation (2)-1.png" alt="Avatar 4" class="card-img">
+            <div class="cardcontainer">
+                <h4><b>[Event name]</b></h4> 
+                <p>Photographer</p> 
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="static/images/Poster Presentation (2)-1.png" alt="Avatar 4" class="card-img">
+            <div class="cardcontainer">
+                <h4><b>[Event name]</b></h4> 
+                <p>Photographer</p> 
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="contact-info">
+        <h2>Contact Information</h2>
+        <p>Email: srmvecorkestrim2k24@gmail.com</p>
+        <p>Student co-ordinators</p>
+        <p>ROHAN - 7200421499</p>
+        <p>BALAJI - 6382986948</p>
+        <p>Address: SRM Valliammai Engineering College, Department of Electronics and Instrumentation, Chennai, India</p>
+    </div>
+</body>
+</html>
+
+
